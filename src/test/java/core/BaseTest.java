@@ -6,6 +6,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestResult;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
@@ -20,7 +21,13 @@ public abstract class BaseTest {
     @BeforeMethod
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new"); // Headless режим для Docker/Jenkins
+        options.addArguments("--no-sandbox");   // Не блокувати sandbox
+        options.addArguments("--disable-dev-shm-usage"); // Уникнути помилок через маленький shared memory
+        options.addArguments("--user-data-dir=/tmp/chrome_profile_" + System.currentTimeMillis()); // унікальний профіль
+
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

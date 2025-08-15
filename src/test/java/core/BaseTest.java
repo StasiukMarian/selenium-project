@@ -23,9 +23,9 @@ public abstract class BaseTest {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new"); // Headless режим для Docker/Jenkins
-        options.addArguments("--no-sandbox");   // Не блокувати sandbox
-        options.addArguments("--disable-dev-shm-usage"); // Уникнути помилок через маленький shared memory
-        options.addArguments("--user-data-dir=/tmp/chrome_profile_" + System.currentTimeMillis()); // унікальний профіль
+//        options.addArguments("--no-sandbox");   // Не блокувати sandbox
+//        options.addArguments("--disable-dev-shm-usage"); // Уникнути помилок через маленький shared memory
+//        options.addArguments("--user-data-dir=/tmp/chrome_profile_" + System.currentTimeMillis()); // унікальний профіль
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();

@@ -16,7 +16,7 @@ public class SecondTest extends BaseTest {
                 .fillLoginForm("standard_user", "secret_sauce")
                 .getElementsHeaders();
 
-        Assert.assertEquals(elementsHeaders.size(), 6);
+        Assert.assertEquals(elementsHeaders.size(), 5);
     }
 
 }

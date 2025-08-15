@@ -1,9 +1,10 @@
 pipeline {
     agent any
 
-    // Тригери: Jenkins буде реагувати на пуші
+    // Тригери: Jenkins буде реагувати на пуші через GitHub webhook
     triggers {
-        // Альтернатива webhook: Jenkins буде перевіряти зміни кожні 5 хвилин
+        githubPush()  // GitHub hook trigger for GITScm polling
+        // Якщо потрібен fallback: Jenkins буде перевіряти зміни кожні 5 хвилин
         // pollSCM('H/5 * * * *')
     }
 
@@ -33,7 +34,13 @@ pipeline {
 
         stage('Allure Report') {
             steps {
-                allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
+                script {
+                    if (fileExists('target/allure-results')) {
+                        allure includeProperties: false, jdk: '', results: [[path: 'target/allure-results']]
+                    } else {
+                        echo 'Allure results not found, skipping report generation.'
+                    }
+                }
             }
         }
     }

@@ -26,6 +26,7 @@ public abstract class BaseTest {
         options.addArguments("--no-sandbox");   // Не блокувати sandbox
         options.addArguments("--disable-dev-shm-usage"); // Уникнути помилок через маленький shared memory
         options.addArguments("--user-data-dir=/tmp/chrome_profile_" + System.currentTimeMillis()); // унікальний профіль
+        options.addArguments("--window-size=1920,1080"); // Задаємо розмір вікна
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();

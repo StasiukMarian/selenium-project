@@ -1,0 +1,19 @@
+image: maven:3.8-openjdk-17
+
+default:
+  tags:
+    - local
+
+stages:
+  - test
+
+Integration tests with Allure:
+  stage: test
+  script:
+  - mvn clean test
+  - allure:serve
+  artifacts:
+    paths:
+      - target/allure-results/*
+
+
